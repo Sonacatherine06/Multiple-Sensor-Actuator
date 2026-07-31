@@ -1,0 +1,55 @@
+// Smart Temperature Fan System
+
+const int tempPin = A0;      // LM35 output
+const int potPin = A1;       // Potentiometer
+const int fanPin = 9;        // Fan (through transistor)
+const int ledPin = 8;        // LED
+
+void setup()
+{
+  pinMode(fanPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  // Read LM35 sensor
+  int sensorValue = analogRead(tempPin);
+
+  // Convert to voltage
+  float voltage = sensorValue * (5.0 / 1023.0);
+
+  // Convert voltage to temperature (LM35 = 10 mV/°C)
+  float temperature = voltage * 100.0;
+
+  // Read potentiometer
+  int potValue = analogRead(potPin);
+
+  // Convert potentiometer value to temperature range (20°C–50°C)
+  int setTemperature = map(potValue, 0, 1023, 20, 50);
+
+  // Display values in Serial Monitor
+  Serial.print("Current Temp: ");
+  Serial.print(temperature);
+  Serial.print(" C   ");
+
+  Serial.print("Set Temp: ");
+  Serial.print(setTemperature);
+  Serial.println(" C");
+
+  // Control fan and LED
+  if (temperature >= setTemperature)
+  {
+    digitalWrite(fanPin, HIGH);
+    digitalWrite(ledPin, HIGH);
+  }
+  else
+  {
+    digitalWrite(fanPin, LOW);
+    digitalWrite(ledPin, LOW);
+  }
+
+  delay(500);
+}
