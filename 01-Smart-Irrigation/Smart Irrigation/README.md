@@ -1,22 +1,20 @@
-# Automatic Plant Watering System
+# Smart Irrigation System
 
 ![Arduino](https://img.shields.io/badge/Arduino-Uno-333333)
 ![C++](https://img.shields.io/badge/Language-C++-00534E)
 
-An Arduino Uno project that automatically waters plants when soil moisture drops below a user-adjustable threshold. A potentiometer sets the desired moisture level, and a water pump + LED activate when the soil is too dry.
+An Arduino Uno project that automatically waters plants based on soil moisture levels. When the soil is dry (below a user-defined threshold from a potentiometer), a water pump and indicator LED activate.
 
 ---
 
 ## Description
 
-This smart irrigation system uses:
+This project implements an automated irrigation system using:
 
-- **Soil Moisture Sensor (A0):** Measures current soil water content.
+- **Soil Moisture Sensor (A0):** Measures soil water content.
 - **Potentiometer (A1):** Sets the desired moisture threshold.
-- **Water Pump (pin 9):** Activates when soil is drier than the set threshold.
+- **Water Pump (pin 9):** Activates when soil is drier than the threshold.
 - **LED (pin 8):** Visual indicator when the pump is active.
-
-The pump runs until the soil moisture reaches the threshold. Both readings are displayed on the Serial Monitor.
 
 ---
 
@@ -40,19 +38,19 @@ The pump runs until the soil moisture reaches the threshold. Both readings are d
 | Arduino Pin | Component | Notes |
 |-------------|-----------|-------|
 | **A0** | Soil Moisture Sensor | Analog moisture reading |
-| **A1** | Potentiometer (wiper) | User-set threshold |
-| **9** | Water Pump | Pump control |
-| **8** | LED | Pump status indicator |
+| **A1** | Potentiometer (wiper) | User-adjustable threshold |
+| **9** | Water Pump | Pump control output |
+| **8** | LED | Pump ON indicator |
 
 ---
 
 ## How It Works
 
-1. The soil moisture sensor value is read from A0.
-2. The potentiometer value (threshold) is read from A1.
-3. If soil moisture is below the threshold (`soilValue < moistureLimit`), both the pump (pin 9) and LED (pin 8) turn ON.
-4. When soil moisture is sufficient, both turn OFF.
-5. Both values are printed to the Serial Monitor every 500 ms.
+1. The soil moisture sensor's analog value is read on A0.
+2. The potentiometer's wiper voltage is read on A1 to set the threshold.
+3. If soil moisture is below the threshold (`soilValue < moistureLimit`), the pump and LED turn ON.
+4. When moisture is sufficient, both turn OFF.
+5. Readings are printed to the Serial Monitor every 500 ms.
 
 ---
 
@@ -72,8 +70,6 @@ Soil: 420  Limit: 550
 Soil: 415  Limit: 550
 Soil: 560  Limit: 550
 ```
-
-The pump activates when `Soil` is less than `Limit`.
 
 ---
 
@@ -113,21 +109,21 @@ void loop() {
 
 ## Installation & Usage
 
-1. Insert the soil moisture probe into the plant's soil.
-2. Wire all components as per the pin table.
-3. Connect Arduino to your computer.
-4. Open the code in Arduino IDE (select **Board → Arduino Uno**).
-5. Upload the code.
-6. Turn the potentiometer to set your desired soil moisture threshold.
+1. Wire all components as per the pin table.
+2. Connect Arduino to your computer.
+3. Open the code in Arduino IDE (select **Board → Arduino Uno**).
+4. Upload the code.
+5. Adjust the potentiometer to set your desired soil moisture threshold.
+6. Insert the soil moisture probe into the plant's soil.
 
 ---
 
 ## Learning Outcomes
 
-- ✅ Soil moisture sensor interfacing
-- ✅ User-adjustable threshold with potentiometer
-- ✅ Automatic actuator control based on sensor readings
-- ✅ Serial data logging of dual sensor values
+- ✅ Analog sensor reading and threshold comparison
+- ✅ User-adjustable threshold via potentiometer
+- ✅ Actuator control based on sensor input
+- ✅ Serial Monitor data logging
 
 ---
 
